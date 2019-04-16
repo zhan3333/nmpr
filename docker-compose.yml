@@ -61,7 +61,7 @@ services:
     networks:
       - net_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "z283779377g"
+      MYSQL_ROOT_PASSWORD: "123456"
 
 networks:
   net_php:
