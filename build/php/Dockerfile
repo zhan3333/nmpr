@@ -39,22 +39,17 @@ RUN apt-get update \
   exif \
   iconv \
   gd \
+  opcache \
   # Clean apt install cache
   && apt-get clean \
   && apt-get autoclean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
-# Redis
-RUN pecl install /home/resource/redis-4.2.0.tgz && \ 
-  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-
-# Swoole
-RUN pecl install /home/resource/swoole-4.2.12.tgz && \
-  echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
-
-# Mcrypt
-RUN pecl install /home/resource/mcrypt-1.0.2.tgz && \
-  echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini
+RUN pecl install /home/resource/redis-4.2.0.tgz\
+  && pecl install /home/resource/swoole-4.2.12.tgz \
+  && pecl install /home/resource/mcrypt-1.0.2.tgz \
+  && pecl install xdebug-2.7.2 \
+  && docker-php-ext-enable redis swoole mcrypt
 
 # Install PHP Composer
 RUN mv /home/resource/composer.phar /usr/local/bin/composer \

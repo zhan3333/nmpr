@@ -22,11 +22,13 @@ services:
   redis:
       image: redis:latest
       container_name: redis
+      command: redis-server /usr/local/etc/redis/redis.conf
       ports:
         - "6379:6379"
       volumes:
         - ./work/components/redis/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
         - ./work/components/redis/log/redis.log:/var/log/redis/redis.log:rw
+        - ./work/components/redis/data:/data:rw
       restart: always
       privileged: true
       networks:

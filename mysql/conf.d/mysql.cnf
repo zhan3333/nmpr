@@ -1,2 +1,8 @@
 [mysqld]
-default_authentication_plugin= mysql_native_password
+default_authentication_plugin=mysql_native_password
+slow_query_log = ON
+slow_query_log_file = /var/lib/mysql/slow.log
+long_query_time = 1
+skip-name-resolve
+innodb_flush_log_at_trx_commit=0
+sync_binlog=0
