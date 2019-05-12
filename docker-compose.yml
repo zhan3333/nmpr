@@ -15,57 +15,52 @@ services:
       - ./www:/www:rw
     privileged: true
     networks:
-      - net_php
-      - net_redis
-      - net_mysql
+      - nmpr_network
       
   redis:
-      image: redis:latest
-      container_name: redis
-      command: redis-server /usr/local/etc/redis/redis.conf
-      ports:
-        - "6379:6379"
-      volumes:
-        - ./work/components/redis/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
-        - ./work/components/redis/log/redis.log:/var/log/redis/redis.log:rw
-        - ./work/components/redis/data:/data:rw
-      restart: always
-      privileged: true
-      networks:
-        - net_redis
+    image: redis:5.0.4
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./work/components/redis/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - ./work/components/redis/log/redis.log:/var/log/redis/redis.log:rw
+      - ./work/components/redis/data:/data:rw
+    restart: always
+    privileged: true
+    networks:
+      - nmpr_network
 
   nginx:
-      image: nginx:alpine
-      container_name: nginx
-      ports:
-        - "80:80"
-      volumes:
-        - ~/work:/work:rw
-        - ./work/components/nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
-        - ./work/components/nginx/config/conf.d:/etc/nginx/conf.d:ro
-        - ./work/components/nginx/log:/var/log/nginx:rw
-        - ./www:/www:rw
-      command: [nginx-debug, '-g', 'daemon off;']
-      restart: always
-      privileged: true
-      networks:
-        - net_php
+    image: nginx:1.16.0
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ~/work:/work:rw
+      - ./work/components/nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./work/components/nginx/config/conf.d:/etc/nginx/conf.d:ro
+      - ./work/components/nginx/log:/var/log/nginx:rw
+      - ./www:/www:rw
+    command: [nginx-debug, '-g', 'daemon off;']
+    restart: always
+    privileged: true
+    networks:
+      - nmpr_network
   mysql:
-    image: mysql:latest
+    image: mysql:8.0.16
     container_name: mysql
     ports:
       - "3306:3306"
-      - "33060:33060"
     volumes:
       - ./mysql/conf.d:/etc/mysql/conf.d
       - ./mysql/data:/var/lib/mysql
     restart: always
     networks:
-      - net_mysql
+      - nmpr_network
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
 
 networks:
-  net_php:
-  net_redis:
-  net_mysql:
+  nmpr_network:
