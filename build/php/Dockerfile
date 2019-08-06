@@ -48,14 +48,14 @@ RUN apt-get update \
 RUN pecl install /home/resource/redis-4.2.0.tgz\
   && pecl install /home/resource/swoole-4.2.12.tgz \
   && pecl install /home/resource/mcrypt-1.0.2.tgz \
-  && pecl install xdebug-2.7.2 \
+  # && pecl install xdebug-2.7.2 \
   && docker-php-ext-enable redis swoole mcrypt
 
 # Install PHP Composer
 RUN mv /home/resource/composer.phar /usr/local/bin/composer \
   && chmod 755 /usr/local/bin/composer \
   # use china mirror
-  && composer config -g repo.packagist composer https://packagist.laravel-china.org \
+  && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer \
   && composer global require hirak/prestissimo
 
 RUN mv /home/resource/tailf /usr/local/bin/tailf \
