@@ -39,7 +39,9 @@ RUN apt-get update \
   exif \
   iconv \
   gd \
+  bcmath \
   opcache \
+  sockets \
   # Clean apt install cache
   && apt-get clean \
   && apt-get autoclean \
@@ -48,8 +50,9 @@ RUN apt-get update \
 RUN pecl install /home/resource/redis-4.2.0.tgz\
   && pecl install /home/resource/swoole-4.2.12.tgz \
   && pecl install /home/resource/mcrypt-1.0.2.tgz \
+  && pecl install /home/resource/mongodb-1.5.5.tgz \
   # && pecl install xdebug-2.7.2 \
-  && docker-php-ext-enable redis swoole mcrypt
+  && docker-php-ext-enable redis swoole mcrypt mongodb
 
 # Install PHP Composer
 RUN mv /home/resource/composer.phar /usr/local/bin/composer \
