@@ -27,6 +27,8 @@ RUN apt-get update \
   vim \
   libmhash-dev \
   libfontconfig1 libxrender1 \
+  pkg-config \
+  busybox \
   # 官方 PHP 镜像内置命令，安装 PHP 依赖
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install \

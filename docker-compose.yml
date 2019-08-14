@@ -15,7 +15,7 @@ services:
       - ./www:/www:rw
     privileged: true
     networks:
-      - nmpr_network
+      - app
       
   redis:
     image: redis:5.0.4
@@ -30,7 +30,7 @@ services:
     restart: always
     privileged: true
     networks:
-      - nmpr_network
+      - app
 
   nginx:
     image: nginx:1.16.0
@@ -47,7 +47,7 @@ services:
     restart: always
     privileged: true
     networks:
-      - nmpr_network
+      - app
   mysql:
     image: mysql:8.0.16
     container_name: mysql
@@ -59,9 +59,10 @@ services:
       - ~/work:/work:rw
     restart: always
     networks:
-      - nmpr_network
+      - app
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
 
 networks:
-  nmpr_network:
+  app:
+    external: true
