@@ -62,5 +62,5 @@ RUN mv /home/resource/composer.phar /usr/local/bin/composer \
 
 RUN cp /home/resource/tailf /usr/local/bin/tailf \
   && chmod 755 /usr/local/bin/tailf \
-  && cp /home/resource/phpunit-8.3.4.phar /usr/local/bin/phpunit \
+  && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit \
   && chmod 755 /usr/local/bin/phpunit
