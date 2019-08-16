@@ -3,14 +3,11 @@ FROM php:7.3.3-fpm-stretch
 # 拷贝需要用到的资源
 COPY resource /home/resource
 
-
-
 #更新apt-get源 使用aliyun的源
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
-  echo "deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >/etc/apt/sources.list && \
-  echo "deb http://mirrors.aliyun.com/debian-security stretch/updates main" >>/etc/apt/sources.list && \
-  echo "deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >>/etc/apt/sources.list && \
-  echo "deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >>/etc/apt/sources.list
+  cp /home/resource/sources.list /etc/apt/sources.list  && \
+  rm /etc/apt/sources.list.d/*.list && \
+  cat /etc/apt/sources.list
 
 # APT 自动安装 PHP 相关的依赖包,如需其他依赖包在此添加
 RUN apt-get update \
@@ -63,5 +60,7 @@ RUN mv /home/resource/composer.phar /usr/local/bin/composer \
   && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer \
   && composer global require hirak/prestissimo
 
-RUN mv /home/resource/tailf /usr/local/bin/tailf \
-  && chmod 755 /usr/local/bin/tailf
+RUN cp /home/resource/tailf /usr/local/bin/tailf \
+  && chmod 755 /usr/local/bin/tailf \
+  && cp /home/resource/phpunit-8.3.4.phar /usr/local/bin/phpunit \
+  && chmod 755 /usr/local/bin/phpunit
