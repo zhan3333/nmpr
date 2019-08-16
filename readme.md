@@ -1,4 +1,4 @@
-# Docker run mysql + php + nginx + redis
+# Docker run MySQL+ PHP + Nginx + Redis
 
 - PHP
   - Version: 7.3+
@@ -26,9 +26,7 @@ You need to install `docker` first. `https://docs.docker.com/docker-for-windows/
 
 1. `cp /work/components/nginx/config/conf.d/localhost.conf /work/components/nginx/config/conf.d/you_host.conf`
 2. `vim you_host.conf`
-3. `docker-compose exec nginx sh`
-4. `nginx -s reload`
-5. is ok
+3. `docker exec nginx /etc/init.d/nginx reload`
 
 ## Config file
 
@@ -46,13 +44,6 @@ Add this dir to system user path (use php.bat)
 
 2. Linux
 Add php file to `/usr/local/php`
-
-### Cache
-
-### Use in vscode
-
-- Windows
-  - `"php.executablePath": "nmpr-path\\php.bat"`
 
 ## Want to help?
 
