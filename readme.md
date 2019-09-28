@@ -19,6 +19,7 @@ You need to install `docker` first. `https://docs.docker.com/docker-for-windows/
 1. down `git clone git@github.com:zhan3333/nmpr.git`
 2. cd `cd nmpr`
 3. build `docker-compose build`
+    - create php container user: `--build-arg UNAME=youname UPWD=zhan`
 4. up `docker-compose up -d`
 5. Browser access `http://localhost`
 
