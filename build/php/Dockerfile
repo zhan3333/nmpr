@@ -1,4 +1,6 @@
 FROM php:7.3.3-fpm-stretch
+ARG UNAME=zhan
+ARG UPWD=zhan
 
 # 拷贝需要用到的资源
 COPY resource /home/resource
@@ -9,12 +11,12 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
   rm /etc/apt/sources.list.d/*.list && \
   cat /etc/apt/sources.list
 
-# create user: zhan
-RUN useradd -ms /bin/bash zhan
+RUN useradd -m -s /bin/bash -p $(openssl passwd -1 ${UPWD}) -G sudo ${UNAME}
 
 # APT 自动安装 PHP 相关的依赖包,如需其他依赖包在此添加
 RUN apt-get update \
   && apt-get install -y \
+  libcurl4-openssl-dev pkg-config libssl-dev \
   libmcrypt-dev \
   libz-dev \
   libzip-dev\
@@ -27,9 +29,9 @@ RUN apt-get update \
   vim \
   libmhash-dev \
   libfontconfig1 libxrender1 \
-  pkg-config \
   openssl \
   busybox \
+  sudo \
   # 官方 PHP 镜像内置命令，安装 PHP 依赖
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install \
