@@ -16,6 +16,7 @@ RUN useradd -m -s /bin/bash -p $(openssl passwd -1 ${UPWD}) -G sudo ${UNAME}
 # APT 自动安装 PHP 相关的依赖包,如需其他依赖包在此添加
 RUN apt-get update \
   && apt-get install -y \
+  libcurl4-openssl-dev pkg-config libssl-dev \
   libmcrypt-dev \
   libz-dev \
   libzip-dev\
@@ -28,7 +29,7 @@ RUN apt-get update \
   vim \
   libmhash-dev \
   libfontconfig1 libxrender1 \
-  pkg-config \
+  openssl \
   busybox \
   sudo \
   # 官方 PHP 镜像内置命令，安装 PHP 依赖
@@ -55,7 +56,7 @@ RUN pecl install /home/resource/redis-4.2.0.tgz\
   && pecl install /home/resource/swoole-4.2.12.tgz \
   && pecl install /home/resource/mcrypt-1.0.2.tgz \
   && pecl install /home/resource/mongodb-1.5.5.tgz \
-  # && pecl install xdebug-2.7.2 \
+  # && pecl install /home/resource/xdebug-2.7.2.tgz  \
   && docker-php-ext-enable redis swoole mcrypt mongodb
 
 # Install PHP Composer
@@ -65,8 +66,6 @@ RUN mv /home/resource/composer.phar /usr/local/bin/composer \
   && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer \
   && composer global require hirak/prestissimo
 
-RUN cp /home/resource/tailf /usr/local/bin/tailf \
-  && chmod 755 /usr/local/bin/tailf \
-  && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit \
-  # install
-  && chmod 755 /usr/local/bin/phpunit
+RUN cp /home/resource/tailf /usr/local/bin/tailf && chmod 755 /usr/local/bin/tailf \
+  && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit\
+  && cp /home/resource/htop /usr/local/bin/htop && chmod 755 /usr/local/bin/htop
