@@ -27,7 +27,7 @@ You PC:
 ```shell
 [root@localhost]# git clone git@github.com:zhan3333/nmpr.git
 [root@localhost]# cd nmpr
-[root@localhost]# docker-compose build --build-arg UNAME=youname UPWD=pwd
+[root@localhost]# docker-compose build --build-arg UNAME=youname --build-arg UPWD=pwd php
 [root@localhost]# docker-compose up -d
 ```
 

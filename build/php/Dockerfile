@@ -1,6 +1,6 @@
 FROM php:7.3.3-fpm-stretch
-ARG UNAME=zhan
-ARG UPWD=zhan
+ARG UNAME
+ARG UPWD
 
 # 拷贝需要用到的资源
 COPY resource /home/resource
@@ -69,3 +69,9 @@ RUN mv /home/resource/composer.phar /usr/local/bin/composer \
 RUN cp /home/resource/tailf /usr/local/bin/tailf && chmod 755 /usr/local/bin/tailf \
   && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit\
   && cp /home/resource/htop /usr/local/bin/htop && chmod 755 /usr/local/bin/htop
+
+USER ${UNAME}
+RUN mv ~/.bashrc ~/.bashrc.bak && ln -s  /home/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
+
+USER root
+RUN mv ~/.bashrc ~/.bashrc.bak &&  ln -s /home/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
