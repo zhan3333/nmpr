@@ -53,7 +53,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 RUN pecl install /home/resource/redis-4.2.0.tgz\
-  && pecl install /home/resource/swoole-4.2.12.tgz \
+  && pecl install /home/resource/swoole-4.4.8.tgz \
   && pecl install /home/resource/mcrypt-1.0.2.tgz \
   && pecl install /home/resource/mongodb-1.5.5.tgz \
   # && pecl install /home/resource/xdebug-2.7.2.tgz  \
