@@ -1,6 +1,5 @@
 
 *
-!others
-
+!others/*
 !localhost.conf
 !.gitignore
