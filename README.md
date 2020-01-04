@@ -25,10 +25,15 @@ You need to install `docker` first. `https://docs.docker.com/docker-for-windows/
 You PC:
 
 ```shell
-[root@localhost]# git clone git@github.com:zhan3333/nmpr.git
-[root@localhost]# cd nmpr
-[root@localhost]# docker-compose build --build-arg UNAME=youname --build-arg UPWD=pwd php
-[root@localhost]# docker-compose up -d
+[zhan@localhost]# git clone git@github.com:zhan3333/nmpr.git
+[zhan@localhost]# cd nmpr
+[zhan@localhost]# cp .env.example .env
+[zhan@localhost]# vim .env
+---
+# USER_NAME=zhan
+# USER_PASSWORD=zhan
+---
+[zhan@localhost]# docker-compose up -d
 ```
 
 OK! Now you can open `http://localhost`

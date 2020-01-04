@@ -1,6 +1,6 @@
 FROM php:7.3.3-fpm-stretch
-ARG UNAME
-ARG UPWD
+ARG USER_NAME
+ARG USER_PASSWORD
 
 # 拷贝需要用到的资源
 COPY resource /home/resource
@@ -11,7 +11,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
   rm /etc/apt/sources.list.d/*.list && \
   cat /etc/apt/sources.list
 
-RUN useradd -m -s /bin/bash -p $(openssl passwd -1 ${UPWD}) -G sudo ${UNAME}
+RUN useradd -m -s /bin/bash -p $(openssl passwd -1 $USER_PASSWORD) -G sudo $USER_NAME
 
 # APT 自动安装 PHP 相关的依赖包,如需其他依赖包在此添加
 RUN apt-get update \
@@ -70,7 +70,7 @@ RUN cp /home/resource/tailf /usr/local/bin/tailf && chmod 755 /usr/local/bin/tai
   && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit\
   && cp /home/resource/htop /usr/local/bin/htop && chmod 755 /usr/local/bin/htop
 
-USER ${UNAME}
+USER ${USER_NAME}
 RUN mv ~/.bashrc ~/.bashrc.bak && ln -s  /home/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
 
 USER root
