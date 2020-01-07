@@ -6,3 +6,4 @@ long_query_time = 1
 skip-name-resolve
 innodb_flush_log_at_trx_commit=0
 sync_binlog=0
+max_connections=1000
