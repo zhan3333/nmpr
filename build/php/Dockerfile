@@ -1,4 +1,4 @@
-FROM php:7.3.3-fpm-stretch
+FROM php:7.4.9-fpm
 ARG USER_NAME
 ARG USER_PASSWORD
 
@@ -8,8 +8,7 @@ COPY resource /home/resource
 #更新apt-get源 使用aliyun的源
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
   cp /home/resource/sources.list /etc/apt/sources.list  && \
-  rm /etc/apt/sources.list.d/*.list && \
-  cat /etc/apt/sources.list
+  rm -f /etc/apt/sources.list.d/*.list
 
 RUN useradd -m -s /bin/bash -p $(openssl passwd -1 $USER_PASSWORD) -G sudo $USER_NAME
 
@@ -31,12 +30,10 @@ RUN apt-get update \
   libfontconfig1 libxrender1 \
   openssl \
   busybox \
-  sudo \
-  # 官方 PHP 镜像内置命令，安装 PHP 依赖
-  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-  && docker-php-ext-install \
+  sudo 
+# 官方 PHP 镜像内置命令，安装 PHP 依赖
+RUN docker-php-ext-install \
   # mcrypt \
-  mbstring \
   pdo_mysql \
   zip \
   fileinfo \
@@ -48,13 +45,13 @@ RUN apt-get update \
   opcache \
   sockets \
   # Clean apt install cache
-  && apt-get clean \
-  && apt-get autoclean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+  # && apt-get clean \
+  # && apt-get autoclean \
+  && rm -rf /tmp/* /var/tmp/* 
 
 RUN pecl install /home/resource/redis-4.2.0.tgz\
   && pecl install /home/resource/swoole-4.4.8.tgz \
-  && pecl install /home/resource/mcrypt-1.0.2.tgz \
+  && pecl install /home/resource/mcrypt-1.0.3.tgz \
   && pecl install /home/resource/mongodb-1.5.5.tgz \
   # && pecl install /home/resource/xdebug-2.7.2.tgz  \
   && docker-php-ext-enable redis swoole mcrypt mongodb
