@@ -30,7 +30,8 @@ RUN apt-get update \
   libfontconfig1 libxrender1 \
   openssl \
   busybox \
-  sudo 
+  sudo \
+  htop
 # 官方 PHP 镜像内置命令，安装 PHP 依赖
 RUN docker-php-ext-install \
   # mcrypt \
@@ -64,8 +65,7 @@ RUN mv /home/resource/composer.phar /usr/local/bin/composer \
   && composer global require hirak/prestissimo
 
 RUN cp /home/resource/tailf /usr/local/bin/tailf && chmod 755 /usr/local/bin/tailf \
-  && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit\
-  && cp /home/resource/htop /usr/local/bin/htop && chmod 755 /usr/local/bin/htop
+  && cp /home/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit
 
 USER ${USER_NAME}
 RUN mv ~/.bashrc ~/.bashrc.bak && ln -s  /home/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
