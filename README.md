@@ -1,7 +1,7 @@
 # Docker run MySQL+ PHP + Nginx + Redis
 
 - PHP
-  - Version: 7.3+
+  - Version: 7.4.9
   - Expansions
     - mongodb
     - swoole
@@ -25,15 +25,15 @@ You need to install `docker` first. `https://docs.docker.com/docker-for-windows/
 You PC:
 
 ```shell
-[zhan@localhost]# git clone git@github.com:zhan3333/nmpr.git
-[zhan@localhost]# cd nmpr
-[zhan@localhost]# cp .env.example .env
-[zhan@localhost]# vim .env
+$ git clone git@github.com:zhan3333/nmpr.git
+$ cd nmpr
+$ cp .env.example .env
+$ vim .env
 ---
 # USER_NAME=zhan
 # USER_PASSWORD=zhan
 ---
-[zhan@localhost]# docker-compose up -d
+$ docker-compose up -d
 ```
 
 OK! Now you can open `http://localhost`
@@ -43,15 +43,15 @@ OK! Now you can open `http://localhost`
 Docker nginx: add new vhost
 
 ```shell
-[root@localhost]# cd /work/components/nginx/config/conf.d
-[root@localhost]# cp localhost.conf you_vhost.conf
-[root@localhost]# vim you_vhost.conf
+$ cd /work/components/nginx/config/conf.d
+$ cp localhost.conf you_vhost.conf
+$ vim you_vhost.conf
 ```
 
 You PC: reload nginx
 
 ```shell
-[root@localhost]# docker exec nginx /etc/init.d/nginx reload
+$ docker exec nginx /etc/init.d/nginx reload
 ```
 
 ## Config file
