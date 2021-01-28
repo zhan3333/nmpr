@@ -1,2 +1,5 @@
 .vscode/
 .env
+mysql/.DS_Store
+.gitignore
+.DS_Store
