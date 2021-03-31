@@ -66,9 +66,3 @@ RUN mv /var/resource/composer.phar /usr/local/bin/composer \
 
 RUN cp /var/resource/tailf /usr/local/bin/tailf && chmod 755 /usr/local/bin/tailf \
   && cp /var/resource/phpunit-7.0.phar /usr/local/bin/phpunit && chmod 755 /usr/local/bin/phpunit
-
-USER ${USER_NAME}
-RUN mv ~/.bashrc ~/.bashrc.bak && ln -s  /var/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
-
-USER root
-RUN mv ~/.bashrc ~/.bashrc.bak &&  ln -s /var/resource/.bashrc ~/.bashrc && /bin/bash -c "source ~/.bashrc"
